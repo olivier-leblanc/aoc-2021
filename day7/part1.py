@@ -1,3 +1,4 @@
+import statistics
 
 def calculate_fuel_for_target(list, target):
     fuel = 0
@@ -15,17 +16,13 @@ def main(file_name):
         for x in l:
             numbers.append(int(x))
 
-    min_number = min(numbers)
-    max_number = max(numbers)
-    best_fuel = calculate_fuel_for_target(numbers, min_number)
-    for possible_target in range(max_number + 1):
-        temp_fuel = calculate_fuel_for_target(numbers, possible_target)
+    # La médiane va nous donner le target dès le début
+    # Il y a autant de points au dessus qu'en dessous de la médiane c'est donc
+    # forcément le point qui requiert le moins de fioule
+    target = statistics.median(numbers)
+    best_fuel = calculate_fuel_for_target(numbers, target)
 
-        if temp_fuel < best_fuel:
-            print(f"Le target '{possible_target}' est meilleur {temp_fuel}<{best_fuel}")
-            best_fuel = temp_fuel
-
-    print(best_fuel)
+    print(f"Le target '{target}' est meilleur {best_fuel}")
 
 if __name__ == "__main__":
     main("7.input")
